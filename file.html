@@ -1,0 +1,44 @@
+<input type="text" id="search" placeholder="Search for items">
+<div id="suggestions"></div>
+
+<script>
+const suggestionsContainer = document.getElementById('suggestions');
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('input', function() {
+  const query = searchInput.value;
+  
+  // Simulate fetching suggestions from a server or local data
+  // Replace this with actual API requests or data sources
+  const suggestions = getSuggestions(query);
+  
+  displaySuggestions(suggestions);
+});
+
+function getSuggestions(query) {
+  // Simulate fetching suggestions based on the query
+  // Replace with actual data retrieval logic
+  return ['Apple', 'Banana', 'Cherry', 'Date', 'Grape', 'Lemon', 'Orange']
+    .filter(item => item.toLowerCase().includes(query.toLowerCase()));
+}
+
+function displaySuggestions(suggestions) {
+  suggestionsContainer.innerHTML = '';
+
+  if (suggestions.length === 0) {
+    suggestionsContainer.style.display = 'none';
+    return;
+  }
+
+  suggestionsContainer.style.display = 'block';
+  suggestions.forEach(suggestion => {
+    const suggestionElement = document.createElement('div');
+    suggestionElement.textContent = suggestion;
+    suggestionElement.addEventListener('click', () => {
+      searchInput.value = suggestion;
+      suggestionsContainer.style.display = 'none';
+    });
+    suggestionsContainer.appendChild(suggestionElement);
+  });
+}
+</script>
